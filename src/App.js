@@ -1,24 +1,35 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
+import ManageOrders from './components/ManageOrders';
+import AddProducts from './components/AddProducts';
 
 function App() {
+  const [selectedStore, setSelectedStore] = useState('');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <nav>
+          <h1>TP Admin</h1>
+          <select
+            value={selectedStore}
+            onChange={(e) => setSelectedStore(e.target.value)}
+            className="store-select"
+          >
+            <option value="MDP">CAR SHED</option>
+          </select>
+          <div className="nav-links">
+            <Link to="/add-products">Add Products</Link>
+            <Link to="/manage-orders">Manage Orders</Link>
+          </div>
+        </nav>
+        <Routes>
+          <Route path="/add-products" element={<AddProducts />} />
+          <Route path="/manage-orders" element={<ManageOrders />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
